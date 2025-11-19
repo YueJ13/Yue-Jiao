@@ -3,80 +3,718 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yue Jiao</title>
+    <title>Yue Jiao - Home</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-        }
-        h1,h2 {
+            background-color: #f8f9fa;
             color: #333;
-            display: inline; /* 让标题和后面的内容在同一行 */
+            line-height: 1.6;
+            overflow-x: hidden;
         }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles for Other Pages */
+        .page-header {
+            background: url('background.jpg');
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            color: white;
+            padding: 0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 70px;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+            z-index: -1;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 70px;
+            padding: 0 40px;
+        }
+        
+        .name {
+            font-size: 1.8rem;
+            font-weight: 400;
+        }
+        
+        .chinese-name {
+            font-size: 1.5rem;
+            margin-left: 10px;
+            opacity: 0.9;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            align-items: center;
+        }
+        
+        nav li {
+            margin-left: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        
+        nav a:hover, nav a.active {
+            color: #2c3e50;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Main Content Styles */
+        main {
+            min-height: calc(100vh - 160px);
+        }
+        
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Home Page Styles */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+        }
+        
+        /* Navigation in Hero Section */
+        .hero-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0 40px;
+            height: 70px;
+        }
+        
+        .hero-name-container {
+            color: white;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .hero-name-large {
+            font-size: 1.8rem;
+            font-weight: 400;
+        }
+        
+        .hero-chinese-name {
+            font-size: 1.5rem;
+            margin-left: 10px;
+            opacity: 0.9;
+        }
+        
+        .hero-nav-links ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            align-items: center;
+        }
+        
+        .hero-nav-links li {
+            margin-left: 25px;
+        }
+        
+        .hero-nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .hero-nav-links a:hover, .hero-nav-links a.active {
+            color: #2c3e50;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Home Content on Hero Image */
+        .hero-content {
+            display: flex;
+            gap: 50px;
+            align-items: flex-start;
+            justify-content: center;
+            flex: 1;
+            padding: 0 40px;
+            margin-top: 50px;
+        }
+        
+        .profile-section {
+            flex: 0 0 280px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
         .profile-pic {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            margin-bottom: 25px;
+            border: 5px solid white;
+            align-self: center;
+        }
+        
+        .contact-info {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            flex-grow: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: auto;
+            min-height: 60px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            justify-content: flex-start;
+        }
+        
+        .contact-info i {
+            margin-right: 10px;
+            color: #3498db;
+            width: 18px;
+            text-align: center;
+        }
+        
+        .info-section {
+            flex: 1;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .intro {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px; /* 减少内边距，从25px改为20px */
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            flex-grow: 0; /* 改为0，防止它占用过多空间 */
+            /* 移除原来的 flex-grow: 1; */
+        }
+        
+        .intro p {
+            margin-bottom: 18px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        /* Other Pages Content */
+        .page-content {
+            padding-top: 90px;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+            font-size: 1.8rem;
+        }
+        
+        .content-card {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            margin-top: 40px;
+        }
+        
+        .paper-list, .talk-list, .event-list {
+            list-style: none;
+        }
+        
+        .paper-list li, .talk-list li, .event-list li {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .paper-list li:last-child, .talk-list li:last-child, .event-list li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .paper-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .paper-authors {
+            font-style: italic;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .paper-venue {
+            margin-bottom: 5px;
+        }
+        
+        .paper-links a {
+            color: #3498db;
+            text-decoration: none;
+            margin-right: 15px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .paper-links a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        
+        /* Events by Year - Simplified */
+        .year-section {
+            margin-bottom: 40px;
+        }
+        
+        .year-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .event-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 1.1rem;
+        }
+        
+        .event-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* CV Page Styles - 完全重写PDF部分 */
+        .pdf-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            width: 100%;
+            margin: 40px 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        
+        .pdf-object {
+            width: 100%;
+            min-height: 800px;
+            border: none;
+            display: block;
+        }
+        
+        .pdf-download {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .download-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+        
+        /* 确保CV页面使用全宽 */
+        #cv .container {
+            max-width: none;
+            width: 100%;
+            padding: 0 20px;
+        }
+        
+        /* Footer Styles */
+        footer {
+            color: #333;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-nav, .page-header .header-content {
+                padding: 0 20px;
+                flex-direction: column;
+                gap: 10px;
+                height: auto;
+                min-height: 70px;
+                justify-content: center;
+            }
             
-            margin-right: 20px;
+            .hero-content {
+                flex-direction: column;
+                padding: 0 20px;
+                gap: 30px;
+                margin-top: 30px;
+            }
+            
+            .profile-pic {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .page-header nav ul {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .page-header nav li {
+                margin: 0 10px;
+            }
+            
+            /* 移动端PDF调整 */
+            .pdf-container {
+                margin: 20px 0;
+                border-radius: 10px;
+            }
+            
+            .pdf-object {
+                min-height: 600px;
+            }
+            
+            #cv .container {
+                padding: 0 10px;
+            }
+            
+            .content-card {
+                padding: 25px;
+            }
         }
-        a {
-            color: #0073e6;
-            text-decoration: underline;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        ul {
-            list-style-type: disc; /* 显示无序列表的圆点符号 */
-      		padding-left: 50px; /* 添加左边距，使符号不会太靠近内容 */
-        }
-        li {
-    		margin-bottom: 10px; /* 每个列表项之间添加间距，保持良好的视觉效果 */
-		}
-	.research-interests {
-            white-space: nowrap; /* 防止内容换行 */
-            display: inline; /* 确保与标题在同一行 */
-            margin-left: 10px; /* 可选：调整标题与内容之间的间距 */
-        }
-        .research-interests strong {
-            margin-right: 15px; /* 可选：调整项目之间的间距 */
+        
+        @media (max-width: 480px) {
+            .pdf-object {
+                min-height: 500px;
+            }
+            
+            .hero-name-large, .name {
+                font-size: 1.5rem;
+            }
+            
+            .hero-chinese-name, .chinese-name {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Home Page -->
+    <section id="home" class="page active">
+        <div class="hero-section">
+            <img class="hero-image" src="background.jpg" alt="Academic Background">
+            <div class="hero-overlay">
+                <div class="hero-nav">
+                    <div class="hero-name-container">
+                        <span class="hero-name-large">Yue Jiao</span>
+                        <span class="hero-chinese-name">焦越</span>
+                    </div>
+                    <nav class="hero-nav-links">
+                        <ul>
+                            <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                            <li><a href="#" class="nav-link" data-page="publications">Publications</a></li>
+                            <li><a href="#" class="nav-link" data-page="events">Events</a></li>
+                            <li><a href="#" class="nav-link" data-page="cv">CV</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                
+                <div class="hero-content">
+                    <div class="profile-section">
+                        <img class="profile-pic" src="test.jpg" alt="Profile Picture">
+                        <div class="contact-info">
+                            <p><b>Email:</b> &nbsp jiao[at]mpi-cbg[dot]de</p>
+                        </div>
+                    </div>
+                    <div class="info-section">
+                        <div class="intro">
+                            <p>I am Yue Jiao, a first year PhD student at Max Planck Institute of Molecular Cell Biology and Genetics (MPI-CBG), supervised by Prof. <a href="https://www.mpi-cbg.de/de/research/researchgroups/currentgroups/group-leader" target="_blank">Aida Maraj</a>.</p>
+                            <p>My research interests include algebraic statistics, algebraic geometry and mathematical biology.</p>
+                            <p>My current work focuses on developing toric structures of complex biological systems, e.g., chemical reaction networks and Gaussian graphical models.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <h1>Yue Jiao</h1>  <h1> 焦越 </h1>
-    
-    <div>
-        <img class="profile-pic" src="test.JPG" alt="Profile Picture" width="150">
-   </div>
-    <div>
-        <p><b>Email address:</b> <a href="mailto:jiao@mpi-cbg.de">jiao@mpi-cbg.de</a></p>
-        <!-- <ul>
-            <li><strong>Email address:</strong> jiao@mpi-cbg.de</li>
-            <li><strong>Office:</strong>  Null</li>
-        </ul> -->
-    </div>
+    <!-- Publications Page -->
+    <section id="publications" class="page">
+        <header class="page-header">
+            <div class="header-content">
+                <div class="name-container">
+                    <span class="name">Yue Jiao</span>
+                    <span class="chinese-name">焦越</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+                        <li><a href="#" class="nav-link active" data-page="publications">Publications</a></li>
+                        <li><a href="#" class="nav-link" data-page="events">Events</a></li>
+                        <li><a href="#" class="nav-link" data-page="cv">CV</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        
+        <main class="page-content">
+            <div class="container">
+                <div class="content-card">
+                    <h2 class="section-title">Papers</h2>
+                    <ol class="paper-list">
+                        <li>
+                            <div class="paper-title">Multistability of Small Zero-One Reaction Networks</div>
+                            <div class="paper-authors"><b>Yue Jiao</b>, Xiaoxian Tang, and Xiaowei Zeng</div>
+                            <div class="paper-venue"> Journal of Mathematical Biology, 91, 82, 2025</div>
+                            <div class="paper-links">
+                                <a href="https://link.springer.com/article/10.1007/s00285-025-02306-w" target="_blank">DOI: 10.1007/s00285-025-02306-w</a>
+                                <a href="https://raw.githubusercontent.com/YueJ13/Yue-Jiao/main/Poster1.pdf" target="_blank">Poster</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="paper-title">An Efficient Algorithm for Determining the Equivalence of Zero-one Reaction Networks</div>
+                            <div class="paper-authors"><b>Yue Jiao</b>, and Xiaoxian Tang</div>
+                            <div class="paper-venue">Proceedings of the 2025 International Symposium on Symbolic and Algebraic Computation (ISSAC '25)</div>
+                            <div class="paper-links">
+                                <a href="https://doi.org/10.1145/3747199.3747571" target="_blank">DOI: 10.1145/3747199.3747571</a>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                
+                <div class="content-card">
+                    <h2 class="section-title">Talks</h2>
+                    <ol class="talk-list">
+                        <li>
+                            <div class="paper-title">Multistability of Small Zero-One Reaction Networks</div>
+                            <div class="paper-venue">Forum on Intelligent Computer Mathematics, 2024</div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </main>
+    </section>
 
-    <p>I am Yue Jiao, a first year PhD student at Max Planck Institute of Molecular Cell Biology and Genetics (MPI-CBG), supervised by Prof. <a href="https://www.mpi-cbg.de/de/research/researchgroups/currentgroups/group-leader" target="_blank">Aida Maraj</a>. <br> My research interests include algebraic statistics, algebraic geometry and mathematical biology.</p>
-	<hr>
-    <h2>Papers:</h2>
-    <ol>
-		<li><b>Yue Jiao</b>, Xiaoxian Tang, and Xiaowei Zeng. Multistability of Small Zero-One Reaction Networks. arXiv preprint. <a href="https://doi.org/10.48550/arXiv.2406.11586" target="_blank">arXiv:2406.11586.</a> 2024. <br> Here is a <a href="https://raw.githubusercontent.com/YueJ13/Yue-Jiao/main/Poster1.pdf" target="_blank">poster</a> of this work.</li>
-    		<li><b>Yue Jiao</b>, and Xiaoxian Tang. An Efficient Algorithm for Determining the Equivalence of Zero-one Reaction Networks. In Proceedings of the 2025 International Symposium on Symbolic and Algebraic Computation (ISSAC '25), <a href="https://doi.org/10.1145/3747199.3747571" target="_blank">277–283, </a> 2025. </li>
-    </ol>
-    <h2>Talks:</h2>
-    <ol>
-        <li>2024. Forum on Intelligent Computer Mathematics. Title: Multistability of Small Zero-One Reaction Networks. </li>
-    </ol>
-	<!-- <h2><a href="https://raw.githubusercontent.com/YueJ13/Yue-Jiao/main/CV.pdf" target="_blank">CV</a></h2> -->
-	<h2>Events:</h2>
-    <ol>
-        <li> Annual Conference of the Priority Program Combinatorial Synergies. Hannover, 2025.</li>
-		<li> Summer school: Nonlinear Optimization and Combinatorics. TU Braunschweig, 2025</li>
-		<li> Summer School: New Perspectives on Discriminants and Their Applications. MPI-MIS, 2025</li>
-		<li> Winter school for Symbolic Computation. Shenzhen University, 2025.</li>
-		<li> Forum on Intelligent Computer Mathematics 2024. Beihang University, 2024.</li>
-		<li> Summer school for Machine Learning. The Hong Kong Polytechnic University, 2024.</li>
-		<li> Twelfth National Conference on Probability Statistics. Shandong University, 2023.</li>
-    </ol>
+    <!-- Events Page -->
+    <section id="events" class="page">
+        <header class="page-header">
+            <div class="header-content">
+                <div class="name-container">
+                    <span class="name">Yue Jiao</span>
+                    <span class="chinese-name">焦越</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+                        <li><a href="#" class="nav-link" data-page="publications">Publications</a></li>
+                        <li><a href="#" class="nav-link active" data-page="events">Events</a></li>
+                        <li><a href="#" class="nav-link" data-page="cv">CV</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        
+        <main class="page-content">
+            <div class="container">
+                <div class="content-card">
+                    <div class="year-section">
+                        <h2 class="year-title">2025</h2>
+                        <div class="event-list">
+                            <div class="event-item">Annual Conference of the Priority Program Combinatorial Synergies, Hannover</div>
+                            <div class="event-item">Summer school: Nonlinear Optimization and Combinatorics, TU Braunschweig</div>
+                            <div class="event-item">Summer School: New Perspectives on Discriminants and Their Applications, MPI-MIS</div>
+                            <div class="event-item">Winter school for Symbolic Computation, Shenzhen University</div>
+                        </div>
+                    </div>
+                    
+                    <div class="year-section">
+                        <h2 class="year-title">2024</h2>
+                        <div class="event-list">
+                            <div class="event-item">Forum on Intelligent Computer Mathematics, Beihang University</div>
+                            <div class="event-item">Summer school for Machine Learning, The Hong Kong Polytechnic University</div>
+                        </div>
+                    </div>
+                    
+                    <div class="year-section">
+                        <h2 class="year-title">2023</h2>
+                        <div class="event-list">
+                            <div class="event-item">Twelfth National Conference on Probability Statistics, Shandong University</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </section>
+
+    <!-- CV Page -->
+    <section id="cv" class="page">
+        <header class="page-header">
+            <div class="header-content">
+                <div class="name-container">
+                    <span class="name">Yue Jiao</span>
+                    <span class="chinese-name">焦越</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+                        <li><a href="#" class="nav-link" data-page="publications">Publications</a></li>
+                        <li><a href="#" class="nav-link" data-page="events">Events</a></li>
+                        <li><a href="#" class="nav-link active" data-page="cv">CV</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        
+        <main class="page-content">
+            <div class="container">
+                <div class="pdf-container">
+                    <!-- 使用object标签直接嵌入PDF -->
+                    <object class="pdf-object" data="Yue_Jiao_CV.pdf" type="application/pdf">
+                        <p>您的浏览器不支持PDF显示。请<a href="Yue_Jiao_CV.pdf" download>下载PDF文件</a>来查看。</p>
+                    </object>
+                </div>
+            </div>
+        </main>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yue Jiao. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and pages
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    pages.forEach(page => page.classList.remove('active'));
+                    
+                    // Add active class to clicked link and corresponding page
+                    this.classList.add('active');
+                    const pageId = this.getAttribute('data-page');
+                    document.getElementById(pageId).classList.add('active');
+                    
+                    // Scroll to top when changing pages
+                    window.scrollTo(0, 0);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
